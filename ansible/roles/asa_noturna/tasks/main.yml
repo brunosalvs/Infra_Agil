@@ -1,0 +1,7 @@
+---
+# tasks file for asa_noturna
+- include: deploy_appweb.yml 
+- include: iniciando_banco.yml
+- include: prerequisitos.yml
+- include: prov_database.yml
+

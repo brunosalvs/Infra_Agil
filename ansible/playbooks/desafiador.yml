@@ -1,0 +1,54 @@
+---
+- name: Desafio do Desafiador
+  hosts: all
+     
+  tasks:
+  - name: Parando NGINX
+    systemd:
+      name: nginx
+      state: stopped
+    ignore_errors: Yes
+  
+  - name: Removendo NGINX - Ubuntu
+    package:
+      name: nginx*
+      state: absent 
+          
+  - name: Instalando Apache2 - Ubuntu
+    apt:
+      name: ['apache2','libapache2-mod-php7.2','php7.2']
+      state: present
+      update_cache: yes
+    when: ansible_distribution == "Ubuntu"
+
+  - name: Instalando Pacones - CENTOS
+    yum:
+      name: ['httpd','php']
+      state: present
+    notify: httpd  
+    when: ansible_distribution == "CentOS"
+
+  - name: Habilitando o Modulo
+    apache2_module:
+      name: php7.2
+      state: present
+    notify: apache2
+    when: ansible_distribution == "Ubuntu"
+  
+  - name: Criando INDEX.PHP
+    lineinfile:
+      path: /var/www/html/index.php
+      create: yes
+      line: '<?php echo "Desafio Completo" ?>'
+      state: present
+  
+  handlers:
+  - name: httpd
+    systemd:
+      name: httpd
+      state: restarted
+  
+  - name: apache2
+    systemd:
+      name: apache2
+      state: restarted      

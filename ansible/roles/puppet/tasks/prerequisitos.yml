@@ -1,0 +1,20 @@
+- name: Baixando RPM CentOS
+  get_url:
+    url: https://yum.puppet.com/puppet6-release-el-7.noarch.rpm
+    dest: /tmp/puppet.rpm
+  when: ansible_distribution == "CentOS"  
+
+- name: Baixando RPM Ubunto
+  get_url:
+    url: https://apt.puppet.com/puppet6-release-bionic.deb
+    dest: /tmp/puppet.deb
+  when: ansible_distribution == "Ubuntu"  
+
+
+
+
+
+
+ 
+
+

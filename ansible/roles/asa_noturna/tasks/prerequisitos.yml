@@ -1,0 +1,12 @@
+- name: Instalando mariaDB / HTTPD
+  yum:
+    name: ['mariadb','mariadb-sever','MySQl-python','httpd']
+    state:
+  when: ansible_os_family == "RedHat"
+
+- name: Instalando MySQL / Apache2
+  apt:
+    name: ['mysql-client','mysql-sever','python-pymysql','apache2']
+    update_cache:
+    state: present
+  when: ansible_os_family == "Debian"  

@@ -1,0 +1,9 @@
+- name: Instalar Repositorio - Centos
+  yum:
+    name: "{{ item }}"
+    state: present
+  loop:
+  - /tmp/puppet.rpm
+  - puppet-agent
+
+    
